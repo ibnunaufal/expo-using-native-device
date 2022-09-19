@@ -1,5 +1,5 @@
-import { Alert, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { Alert, StyleSheet, Text, View, Image } from "react-native";
+import React, { useState } from "react";
 import Button from "../ui/Button";
 import {
   launchCameraAsync,
@@ -9,6 +9,7 @@ import {
 
 export default function ImagePicker() {
   const [cameraPermission, requestPermission] = useCameraPermissions();
+  const [image, setImage] = useState()
 
   async function verifiyPermission() {
     if (cameraPermission.status === PermissionStatus.UNDETERMINED) {
@@ -41,17 +42,29 @@ export default function ImagePicker() {
       aspect: [16, 9],
       quality: 0.5,
     });
-
+    setImage(image.uri)
     console.log(image);
   }
   return (
     <View>
-      <View>
-        
+      <View style={styles.imageView}>
+        { image && <Image source={{uri: image}} style={styles.image} /> }
+        { !image && <Text style={{color:'white', textAlign: "center"}}>No Image taken.</Text> }
       </View>
       <Button onPress={takeImageHandler}>Take Photos</Button>
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    imageView: {
+        width: '100%',
+        height: 200,
+        marginVertical: 8,
+        justifyContent: "center"
+    },
+    image: {
+        width: '100%',
+        height: 200,
+    }
+});
