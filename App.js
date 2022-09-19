@@ -6,6 +6,9 @@ import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import { Colors } from './constants/styles';
+import { StyleSheet, Text } from 'react-native';
+import AllPlaces from './screens/AllPlaces';
+import AddPlace from './screens/AddPlace';
 
 const Stack = createNativeStackNavigator();
 
@@ -49,9 +52,22 @@ function Navigation() {
 export default function App() {
   return (
     <>
-      <StatusBar style="light" />
-
-      <Navigation />
+      <StatusBar style="dark" />
+      {/* <Text>Hello World!</Text> */}
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name='AllPlaces' component={AllPlaces} />
+          <Stack.Screen name='AddPlace' component={AddPlace} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+})
