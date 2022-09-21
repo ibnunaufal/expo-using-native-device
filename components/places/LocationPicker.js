@@ -15,7 +15,7 @@ import {
 } from "@react-navigation/native";
 import MapView, { Marker } from "react-native-maps";
 
-export default function LocationPicker() {
+export default function LocationPicker({ onPickLocation }) {
   const [locationPermission, requestPermission] = useForegroundPermissions();
   const navigation = useNavigation();
   const route = useRoute();
@@ -40,6 +40,10 @@ export default function LocationPicker() {
       console.log(mapPickedLocation);
     }
   }, [route, isFocus]);
+
+  useEffect(() => {
+    onPickLocation(pickedLocation)
+  },[pickedLocation, onPickLocation]);
 
   async function verifiyPermission() {
     if (locationPermission.status === PermissionStatus.UNDETERMINED) {
@@ -121,6 +125,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    marginBottom: 50
+    marginBottom: 20,
   },
 });

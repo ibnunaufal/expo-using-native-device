@@ -7,7 +7,7 @@ import {
   PermissionStatus,
 } from "expo-image-picker";
 
-export default function ImagePicker() {
+export default function ImagePicker({onTakeImage}) {
   const [cameraPermission, requestPermission] = useCameraPermissions();
   const [image, setImage] = useState()
 
@@ -43,6 +43,7 @@ export default function ImagePicker() {
       quality: 0.5,
     });
     setImage(image.uri)
+    onTakeImage(image.uri)
     console.log(image);
   }
   return (
